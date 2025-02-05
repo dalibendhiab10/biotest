@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+    "lib": ["es5", "es6", "dom"],
+      "target": "ES6", // Utilisation de ES6 comme cible de compilation
+      "module": "commonjs", // Utilisation de CommonJS pour les modules
+      "outDir": "./dist", // Répertoire de sortie pour les fichiers compilés JavaScript
+      "rootDir": "./src", // Répertoire source où se trouvent les fichiers TypeScript
+      "strict": true, // Activer les vérifications strictes de TypeScript
+      "esModuleInterop": true, // Autoriser l'interopérabilité des espaces de noms ES modules
+      "experimentalDecorators": true, // Activer les décorateurs expérimentaux pour TypeORM
+      "emitDecoratorMetadata": true, // Émettre les métadonnées des décorateurs pour TypeORM
+      "skipLibCheck": true, // Ignorer la vérification des fichiers de bibliothèque (peut améliorer les performances)
+      "forceConsistentCasingInFileNames": true
+    },
+    "include": ["src/**/*.ts"], 
+    "exclude": ["node_modules"] 
+  }
+  

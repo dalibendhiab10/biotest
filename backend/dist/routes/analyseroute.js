@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const analyse_1 = require("../controllers/analyse");
+const analyseMiddleware_1 = require("../middlewares/analyseMiddleware");
+const router = (0, express_1.Router)();
+router.post('/analyse', analyseMiddleware_1.authenticateToken, analyse_1.createAnalyse);
+router.get('/analyse', analyseMiddleware_1.authenticateToken, analyse_1.getAnalyses);
+router.get('/analyse/:id', analyseMiddleware_1.authenticateToken, analyse_1.getAnalyse);
+router.put('/analyse/:id', analyseMiddleware_1.authenticateToken, analyse_1.updateAnalyse);
+router.delete('/analyse/:id', analyseMiddleware_1.authenticateToken, analyse_1.deleteAnalyse);
+router.get('/analyseBio/:id', analyseMiddleware_1.authenticateToken, analyse_1.getAnalyseByBio);
+router.get('/analyseBio', analyse_1.getAnalysesBio);
+exports.default = router;
