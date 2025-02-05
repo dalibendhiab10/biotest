@@ -16,7 +16,7 @@ const PanierPage: React.FC = () => {
         const fetchAnalyseCommandes = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get('http://localhost:3000/panier/analysecommande', {
+                const response = await axios.get('/panier/analysecommande', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -61,7 +61,7 @@ const PanierPage: React.FC = () => {
     const handleDelete = async (id: number) => {
         const token = localStorage.getItem('token');
         try {
-            await axios.delete(`http://localhost:3000/panier/analysecommande/${id}`, {
+            await axios.delete(`/panier/analysecommande/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

@@ -18,7 +18,7 @@ const CommandPopup: React.FC<CommandPopupProps> = ({ analyse, onClose, onAddToPa
 
     const handleAddToPanier = async () => {
         try {
-            await axios.post('http://localhost:3000/panier/analysecommande', {
+            await axios.post('/panier/analysecommande', {
                 analyseId: analyse.id,
                 delai_prevu: today,  
                 quantite: 1,       
