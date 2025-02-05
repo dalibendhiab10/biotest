@@ -53,7 +53,7 @@ AppDataSource.initialize()
       res.status(200).json({ message: "CORS is enabled and server is running!" });
     });
 
-    app.use("/api", analyseroute);
+    app.use("/aa", analyseroute);
     app.use(bodyParser.json());
     app.use("/CNAM", analysecnamroute);
     app.use("/biologiste", biologisteroute);

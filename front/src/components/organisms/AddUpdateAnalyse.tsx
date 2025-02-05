@@ -71,7 +71,7 @@ const AddUpdateAnalyse: React.FC<AddUpdateAnalyseProps> = ({ ajouterAnalyse, onC
   const handleAddSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await post('/api/analyse', nouvelleAnalyse);
+      const response = await post('/aa/analyse', nouvelleAnalyse);
       ajouterAnalyse(response);
       alert('Analyse ajoutée avec succès !');
       onClose();

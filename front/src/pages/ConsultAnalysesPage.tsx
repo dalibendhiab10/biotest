@@ -58,7 +58,7 @@ const fetchAnalysesByLab = async()=>{
 
 try{
 
-const response = await get("/api/analyseBio")
+const response = await get("/aa/analyseBio")
      
 setAnalyses(response) 
 

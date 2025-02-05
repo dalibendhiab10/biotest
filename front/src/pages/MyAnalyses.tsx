@@ -37,7 +37,7 @@ useEffect(() => {
                     console.error('Token is missing');
                     return;
                 }
-                const response = await get('/api/analyse');
+                const response = await get('/aa/analyse');
                 
                 if (Array.isArray(response.analyses)) {
                     setAnalyses(response.analyses);
@@ -88,7 +88,7 @@ if (!token) {
 console.error('Token is missing');
 return;
 }
-await update(`/api/analyse/${updatedAnalyse.id}`, updatedAnalyse);
+await update(`/aa/analyse/${updatedAnalyse.id}`, updatedAnalyse);
 alert('Analyse modifiée avec succès !');
 setIsPopupOpen(false)
 } catch (error) {
@@ -104,7 +104,7 @@ const supprimerAnalyse = async (id: number) => {
                     console.error('Token is missing');
                     return;
                 }
-                await remove(`/api/analyse/${id}`);
+                await remove(`/aa/analyse/${id}`);
                 setAnalyses((prevAnalyses) => prevAnalyses.filter((analyse) => analyse.id !== id));
                 alert('Analyse supprimée avec succès !');
             } catch (error) {
