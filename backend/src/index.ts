@@ -42,18 +42,20 @@ AppDataSource.initialize()
   .then(() => {
     const app = express();
 
-    app.use(express.json());
+    // CORS middleware
+    app.use(cors());
 
+    app.use(express.json());
     app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
-    app.use(cors({ origin: process.env.CLIENT }));
+    // Test route
+    app.get("/test", (req, res) => {
+      res.status(200).json({ message: "CORS is enabled and server is running!" });
+    });
 
     app.use("/api", analyseroute);
-
     app.use(bodyParser.json());
-
     app.use("/CNAM", analysecnamroute);
-
     app.use("/biologiste", biologisteroute);
     app.use("/panier", analysecommanderoute);
     app.use("/", patientroute);
