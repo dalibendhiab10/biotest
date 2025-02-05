@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ListAnalyses from "@components/molecules/ListAnalyses";
 import AddUpdateAnalyse from "@components/organisms/AddUpdateAnalyse";
-import { Analyse, Commande, Patient } from "types";
+import { Analyse, Commande } from "types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus} from "@fortawesome/free-solid-svg-icons";
 import { get, update, remove } from "api/axiosConfig";

@@ -1,5 +1,5 @@
 import PrimaryBtn from "@components/atoms/PrimaryBtn";
-import TextInput from "@components/atoms/TextInput";
+// import TextInput from "@components/atoms/TextInput";
 import Title from "@components/atoms/Title";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

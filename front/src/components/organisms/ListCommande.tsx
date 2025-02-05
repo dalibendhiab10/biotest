@@ -1,5 +1,5 @@
 import patient from "@assets/icons/patient.svg"
-import { Commande, Patient } from "types";
+import { Commande } from "types";
 
 
 type ListCommandeProps = {

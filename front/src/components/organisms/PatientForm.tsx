@@ -11,7 +11,7 @@ import { post } from 'api/axiosConfig';
 
 interface PatientFormProps {
   onClose: () => void;
-  analyseId:number
+  analyseId: number
 }
 
 const PatientForm: React.FC<PatientFormProps> = ({ onClose, analyseId }) => {
@@ -35,7 +35,7 @@ const PatientForm: React.FC<PatientFormProps> = ({ onClose, analyseId }) => {
     urgent: false,
   });
 
-const [error, setError] = useState("")
+  // const [error, setError] = useState("")
 
 
 
@@ -43,46 +43,46 @@ const [error, setError] = useState("")
 
 
 
-// Updated handleChange
-const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Updated handleChange
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = e.target;
 
     setPatient((prevPatient) => ({
       ...prevPatient,
-      [name]: 
+      [name]:
         type === 'number' ? Number(value) :   // Convert numeric inputs to numbers
-        type === 'date' ? (value ? new Date(value) : undefined) :  // Convert date strings to Date objects
-        value,  // Default to string for other types
+          type === 'date' ? (value ? new Date(value) : undefined) :  // Convert date strings to Date objects
+            value,  // Default to string for other types
     }));
   };
 
-const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, id:number) => {
-e.preventDefault();
-    
-try{
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, id: number) => {
+    e.preventDefault();
 
-await post(`/patients/${id}`, patient)
-alert('Analyse ajoutée avec succès !');
-onClose();
+    try {
 
-}catch(err:any){
+      await post(`/patients/${id}`, patient)
+      alert('Analyse ajoutée avec succès !');
+      onClose();
 
-setError(err.message)
-console.error(err.message)
-}   
+    } catch (err: any) {
 
-};
+      // setError(err.message)
+      console.error(err.message)
+    }
+
+  };
 
   return (
     <div onClick={onClose} className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50 overflow-auto">
       <div onClick={(e) => e.stopPropagation()} className="bg-white rounded-lg p-6 max-w-xl w-full">
         <FontAwesomeIcon icon={faXmark} className='float-right cursor-pointer' onClick={onClose} />
         <h2 className="text-xl font-semibold text-center text-green-800 mb-8 mt-2">
-          Information patient 
+          Information patient
         </h2>
 
         {/* Form */}
-        <form className="grid grid-cols-2 gap-4 place-items-center" onSubmit={(e)=>handleSubmit(e, analyseId)}>
+        <form className="grid grid-cols-2 gap-4 place-items-center" onSubmit={(e) => handleSubmit(e, analyseId)}>
 
           <FormInput label={"Nom"} name={"nom"} type={"text"} value={patient.nom} onChange={handleChange} />
           <FormInput label={"Prenom"} name={"prenom"} type={"text"} value={patient.prenom} onChange={handleChange} />
