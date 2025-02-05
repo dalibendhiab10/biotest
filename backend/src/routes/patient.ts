@@ -9,6 +9,8 @@ import {
 
 
 const router = Router();
+import { authenticateToken } from "../middlewares/authMiddleware";
+router.use(authenticateToken);
 
 router.post("/patients/:id_analyse", addPatient);
 router.get("/patients", getPatients);

@@ -57,7 +57,7 @@ export const getAnalysesBioService = async (biologisteId: number) => {
 
   const analyses = await analyseRepository.find({
     where: {
-      biologiste: { id: Not(biologisteId) },
+      biologiste: { id: 67 },
     },
     relations: ["biologiste"],
   });
