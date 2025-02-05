@@ -5,14 +5,13 @@ import {
   getAnalyseCommandeCountById,
   getAnalyseCommandes,
 } from "../controllers/analyseCommande";
-import { authenticateToken } from "../middlewares/authMiddleware";
 
 const router = Router();
 
-router.post("/analysecommande", authenticateToken, createAnalyseCommande);
-router.get("/analysecommande", authenticateToken, getAnalyseCommandes);
+router.post("/analysecommande", createAnalyseCommande);
+router.get("/analysecommande", getAnalyseCommandes);
 router.delete("/analysecommande/:id", deleteAnalyseCommande);
 
-router.get("/count", authenticateToken, getAnalyseCommandeCountById);
+router.get("/count", getAnalyseCommandeCountById);
 
 export default router;

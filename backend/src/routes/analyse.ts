@@ -8,17 +8,16 @@ import {
   getAnalysesBio,
   updateAnalyse,
 } from "../controllers/analyse";
-import { authenticateToken } from "../middlewares/authMiddleware";
 
 const router = Router();
 
-router.post("/analyse", authenticateToken, createAnalyse);
-router.get("/analyse", authenticateToken, getAnalyses);
+router.post("/analyse", createAnalyse);
+router.get("/analyse", getAnalyses);
 
-router.get("/analyse/:id", authenticateToken, getAnalyse);
-router.put("/analyse/:id", authenticateToken, updateAnalyse);
-router.delete("/analyse/:id", authenticateToken, deleteAnalyse);
-router.get("/analyseBio/:id", authenticateToken, getAnalyseByBio);
-router.get("/analyseBio", authenticateToken, getAnalysesBio);
+router.get("/analyse/:id", getAnalyse);
+router.put("/analyse/:id", updateAnalyse);
+router.delete("/analyse/:id", deleteAnalyse);
+router.get("/analyseBio/:id", getAnalyseByBio);
+router.get("/analyseBio", getAnalysesBio);
 
 export default router;

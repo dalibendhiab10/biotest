@@ -7,11 +7,9 @@ import {
   deletePatient,
 } from "../controllers/patient";
 
-import { authenticateToken } from "../middlewares/authMiddleware";
 
 const router = Router();
 
-router.use(authenticateToken);
 router.post("/patients/:id_analyse", addPatient);
 router.get("/patients", getPatients);
 router.get("/patients/:id", getPatientById);
