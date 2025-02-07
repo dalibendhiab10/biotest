@@ -24,12 +24,6 @@ export default function Login(/*{}: Props*/) {
    
       localStorage.setItem('token', response.token);
       
-      //localStorage.setItem('biologisteId', response.id);
-      //console.log('biologisteId c est:', response.id);
-      //console.log('Token stocké:', response.token);
-      /*const token =*/ localStorage.getItem('token');
-      //console.log('Token récupéré:', token);
-      //setIsAuthenticated(true); 
       navigate('/home'); 
     } catch (err) {
       setError('Erreur lors de la connexion. Veuillez vérifier vos informations.');

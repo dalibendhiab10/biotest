@@ -21,7 +21,6 @@ const PanierPage: React.FC = () => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                console.log('Analyse Commandes:', response.data);
                 setAnalyseCommandes(response.data);
             } catch (error) {
                 console.error('Error fetching analyse commandes:', error);

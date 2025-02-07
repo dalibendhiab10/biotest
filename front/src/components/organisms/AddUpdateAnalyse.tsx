@@ -37,8 +37,6 @@ const AddUpdateAnalyse: React.FC<AddUpdateAnalyseProps> = ({ ajouterAnalyse, onC
     biologiste:analyse?analyse.biologiste:null,
   });
 
-  //const token = localStorage.getItem('token');
-  //console.log('Token récupéré:', token);
 
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {

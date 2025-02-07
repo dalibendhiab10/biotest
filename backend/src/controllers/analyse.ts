@@ -93,7 +93,6 @@ export const getAnalyses = async (req: Request, res: Response) => {
     if (!biologisteId) {
       return res.status(400).json({ message: "Invalid biologiste ID" });
     }
-    console.log("biologisteId", biologisteId);
     // Récupérer les analyses créées par le biologiste spécifique
     const analyses = await getAnalysesService(biologisteId);
 

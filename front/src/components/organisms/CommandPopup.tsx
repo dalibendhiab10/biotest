@@ -11,7 +11,6 @@ interface CommandPopupProps {
 
 const CommandPopup: React.FC<CommandPopupProps> = ({ analyse, onClose, onAddToPanier }) => {
     const token = localStorage.getItem('token');
-    console.log('Token récupéré:', token);
 
     // La date actuelle en format YYYY-MM-DD
     const today = new Date().toISOString().split('T')[0];

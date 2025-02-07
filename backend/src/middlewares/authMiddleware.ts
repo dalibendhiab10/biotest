@@ -8,7 +8,6 @@ import { Biologiste } from "../entities/biologiste";
 export const authenticateToken = async (req: Request, res: Response, next: NextFunction) => {
     
     const authHeader = req.headers['authorization'];
-    console.log("authHeader",authHeader);
     const token = authHeader && authHeader.split(' ')[1];
    
     if (!token) {
