@@ -39,9 +39,12 @@ export default function ListCommandes({ commandes, onOpen, onOpenInfo, setComman
 
                                     <>
                                         <td className="px-4 py-2 text-center">{commande.analyse.codeCNAM}</td>
-                                        <td className="px-4 py-2 flex justify-center">
+                                        <td className="px-4 py-2 text-center">
                                             {/* <img src={commande.biologiste.logo} width={"90px"} height={"90px"} alt="Logo Laboratoire" />  */}
                                             {commande.etat_commande}
+                                        </td>
+                                        <td className="px-4 py-2 flex justify-center">
+                                            <img src={commande.biologiste.logo} width={"90px"} height={"90px"} alt="Logo Laboratoire" /> 
                                         </td>
                                         <td className="px-4 py-2 text-center">{commande.analyse.nom}</td>
                                         <td className="px-4 py-2 text-center">{commande.analyse.durée}  </td>
