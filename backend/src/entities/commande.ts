@@ -36,7 +36,7 @@ export class Commande {
   etat_commande: string = "En Attente";
 
   @ManyToOne(() => Biologiste, (biologiste) => biologiste.commandes, {
-    nullable: true,
+    nullable: false,
   })
   biologiste: Biologiste | null | undefined;
 

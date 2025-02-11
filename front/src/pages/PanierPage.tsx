@@ -10,6 +10,8 @@ import Footer from '@components/organisms/Footer';
 const PanierPage: React.FC = () => {
     const [analyseCommandes, setAnalyseCommandes] = useState<Analyse_commande[]>([]);
     const [submittedForms, setSubmittedForms] = useState<number[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -21,9 +23,22 @@ const PanierPage: React.FC = () => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                setAnalyseCommandes(response.data);
+
+                // Log the API response for debugging
+                console.log('API Response:', response.data);
+
+                // Ensure the response is an array
+                if (Array.isArray(response.data)) {
+                    setAnalyseCommandes(response.data);
+                } else {
+                    console.error('Expected an array but got:', response.data);
+                    setAnalyseCommandes([]); // Set to empty array if not an array
+                }
             } catch (error) {
                 console.error('Error fetching analyse commandes:', error);
+                setError('Failed to fetch data. Please try again later.');
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -39,7 +54,7 @@ const PanierPage: React.FC = () => {
                     laboratoire,
                     commandes: [],
                     totalPrix: 0,
-                    nombreAnalyses: 0
+                    nombreAnalyses: 0,
                 };
             }
             grouped[laboratoire].commandes.push(ac);
@@ -68,6 +83,7 @@ const PanierPage: React.FC = () => {
             setAnalyseCommandes(analyseCommandes.filter(ac => ac.id !== id));
         } catch (error) {
             console.error('Error deleting analyse commande:', error);
+            setError('Failed to delete the item. Please try again.');
         }
     };
 
@@ -84,9 +100,16 @@ const PanierPage: React.FC = () => {
         navigate(-1);
     };
 
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (error) {
+        return <p>{error}</p>;
+    }
+
     return (
         <div className="panier-page">
-
             <button className="icon-button back-button" onClick={handleGoBack}>
                 <FontAwesomeIcon icon={faArrowLeft} />
             </button>
@@ -99,8 +122,6 @@ const PanierPage: React.FC = () => {
                     <div key={labo.laboratoire} className="laboratoire-section">
                         <h2>{labo.laboratoire}</h2>
                         <table className="panier-table">
-
-                           
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -143,10 +164,8 @@ const PanierPage: React.FC = () => {
                                             </button>
                                         </td>
                                     </tr>
-                                
                                 ))}
                             </tbody>
-                         
                         </table>
                         <div className="total-price-laboratoire">
                             <h3>Total pour {labo.laboratoire} : {labo.totalPrix} DT</h3>
@@ -161,9 +180,8 @@ const PanierPage: React.FC = () => {
             </div>
             <button type="submit">Commander</button>
             <Footer />
-    
         </div>
     );
 };
 
-export default PanierPage;
+export default PanierPage;  

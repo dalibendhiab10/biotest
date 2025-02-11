@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ListAnalyses from "@components/molecules/ListAnalyses";
 import AddUpdateAnalyse from "@components/organisms/AddUpdateAnalyse";
-import { Analyse, Commande } from "types";
+import { Analyse } from "types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { get, update, remove } from "api/axiosConfig";
@@ -9,26 +9,19 @@ import Pagination from "@components/molecules/Pagination";
 import Footer from "@components/organisms/Footer";
 import AnalyseInfo from "@components/organisms/AnalyseInfo";
 import NavBar from "@components/organisms/NavBar";
-import ListCommandes from "@components/organisms/ListCommande";
-import { PatientInfo } from "@components/organisms/PatientInfo";
 
 
 
-export default function MyAnalysesPage() {
+export default function MyCatalogPage() {
     const [analyses, setAnalyses] = useState<Analyse[]>([]);
     const [analyseId, setAnalyseId] = useState<number>(0)
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [isPopupInfoOpen, setIsPopupInfoOpen] = useState(false)
-    const [isPopupPatient, setIsPopupPatient] = useState(false)
-    const [isListOne, setIsListOne] = useState(true)
     const [currentPage, setCurrentPage] = useState(1);
     const [actionAnalyse, setActionAnalyse] = useState("")
-    const [commandes, setCommandes] = useState<Commande[]>([])
-    const [commandeId, setCommandeId] = useState<number>()
 
     const analysesPerPage = 10;
 
-    // Get biologiste analyses
     useEffect(() => {
         const fetchAnalyses = async () => {
             try {
@@ -55,28 +48,6 @@ export default function MyAnalysesPage() {
 
 
 
-    // Get biologiste orders  
-    useEffect(() => {
-
-        const fetchCommandes = async () => {
-
-            try {
-
-                const response = await get('/getAllCommandes')
-
-                setCommandes(response)
-
-            } catch (error: any) {
-
-                console.error("Erreur lors de la récupération des biologists")
-
-            }
-
-        }
-
-        fetchCommandes()
-
-    }, [])
 
 
 
@@ -130,39 +101,22 @@ export default function MyAnalysesPage() {
 
 
 
-            <NavBar switchList={setIsListOne} currentList={isListOne} />
 
-
+            <NavBar />
 
             <div className="flex ps-8 pe-9 justify-between mt-[30px]">
-                <h1 className="text-2xl">Liste des commandes</h1>
-                <div className="flex items-center gap-4">
-                <button className="text-[#1e2266fa] hover:opacity-80 bg-transparent cursor-pointer 
-                    text-xl transition-colors duration-300 w-fit h-7 flex items-center justify-center 
-                     border-[2.5px] border-[#1e2266fa] mt-1 rounded-md p-2" >
-                        Confirmé 
-
-                </button>
-                <button className="text-[#e1a518fa] hover:opacity-80 bg-transparent cursor-pointer 
-                    text-xl transition-colors duration-300 w-fit h-7 flex items-center justify-center 
-                     border-[2.5px] border-[#e1a518fa] mt-1 rounded-md p-2" >
-                        En cours d'analyse  
-
-                </button>
+                <h1 className="text-2xl">Liste des Analyses par votre laboratoire</h1>
                 <button className="text-[#1E664DFA] hover:opacity-80 bg-transparent cursor-pointer 
-                    text-xl transition-colors duration-300 w-fit h-7 flex items-center justify-center 
-                     border-[2.5px] border-[#1E664DFA] mt-1 rounded-md p-2" >
-                        Terminé
+                        text-xl transition-colors duration-300 w-7 h-7 flex items-center justify-center 
+                        rounded-full border-[2.5px] border-[#1E664DFA] mt-1" onClick={() => setIsPopupOpen(true)}>
+                    <FontAwesomeIcon icon={faPlus} onClick={() => setActionAnalyse("add")} />
                 </button>
-
-                
-                </div>
             </div>
 
 
-            {!isListOne && (<h3 className="ml-auto me-10  text-[#A9A7A7FC] mb-2 mt-2 font-semibold"> {totalPages} {totalPages > 1 ? "Pages" : "Page"} </h3>)}
+            <h3 className="ml-auto me-10  text-[#A9A7A7FC] mb-2 mt-2 font-semibold"> {totalPages} {totalPages > 1 ? "Pages" : "Page"} </h3>
 
-            {!isListOne && (<ListAnalyses
+            <ListAnalyses
                 analyses={currentAnalyses}
                 supprimerAnalyse={supprimerAnalyse}
                 setActionAnalyse={setActionAnalyse}
@@ -170,17 +124,7 @@ export default function MyAnalysesPage() {
                 onOpen={() => setIsPopupOpen(true)}
                 onOpenInfo={() => setIsPopupInfoOpen(true)}
                 listAnalyseType={"myAnalyses"}
-            />)
-            }
-
-
-
-
-            {
-                isListOne && (<ListCommandes commandes={commandes} onOpen={() => setIsPopupPatient(true)}
-                    onOpenInfo={() => setIsPopupInfoOpen(true)} setCommandeId={setCommandeId} />)
-            }
-
+            />
 
 
             {isPopupOpen && (
@@ -198,10 +142,6 @@ export default function MyAnalysesPage() {
             )}
 
 
-            {isPopupPatient && (
-                <PatientInfo info={commandes.find(commande => commande.id === commandeId)?.patient} onClose={() => setIsPopupPatient(false)} />
-            )}
-
 
 
 
@@ -209,19 +149,16 @@ export default function MyAnalysesPage() {
                 <AnalyseInfo analyses={currentAnalyses}
                     analyseId={analyseId}
                     onClose={() => setIsPopupInfoOpen(false)}
-                    {...(isListOne && { commandes, commandeId })}
+
                 />
             )}
 
 
-            {
-                !isListOne && (<Pagination
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    onPageChange={handlePageChange}
-                />)
-            }
-
+            <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+            />
 
             <Footer />
 

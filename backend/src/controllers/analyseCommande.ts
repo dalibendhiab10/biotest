@@ -5,12 +5,12 @@ import {
   deleteAnalyseCommandeService,
   getAnalyseCommandesService,
 } from "../services/analyseCommande";
+import { getAllCommandesService } from "../services/commande";
 
 //creation d une analyse commande
 export const createAnalyseCommande = async (req: Request, res: Response) => {
   const { analyseId, delai_prevu, quantite } = req.body;
   const biologisteId = (req as any).biologiste.id;
-
   if (
     analyseId === undefined ||
     delai_prevu === undefined ||
@@ -45,13 +45,16 @@ export const createAnalyseCommande = async (req: Request, res: Response) => {
 //analyses commandes d un biologiste authentifié
 export const getAnalyseCommandes = async (req: Request, res: Response) => {
   try {
+    
     const biologisteId = (req as any).biologiste.id;
+
+
     if (!biologisteId) {
       return res.status(401).json({ message: "Utilisateur non authentifié" });
     }
 
     // Rechercher toutes les commandes d'analyse pour le biologiste authentifié
-    const analyseCommandes = await getAnalyseCommandesService(biologisteId);
+    const analyseCommandes = await     getAllCommandesService(biologisteId);
 
     // Vérifier si des commandes ont été trouvées
     if (analyseCommandes.length === 0) {

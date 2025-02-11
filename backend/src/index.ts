@@ -16,7 +16,7 @@ import { Analyse_commande } from "./entities/analysecommande";
 import dotenv from "dotenv";
 import { Patient } from "./entities/patient";
 import commanderoute from "./routes/commande";
-
+import daliRoutes from "./routes/dali";
 dotenv.config();
 
 export const AppDataSource = new DataSource({
@@ -60,6 +60,7 @@ AppDataSource.initialize()
     app.use("/panier", analysecommanderoute);
     app.use("/", patientroute);
     app.use("/", commanderoute);
+    app.use("/dali",daliRoutes)
 
     app.listen(process.env.PORT, () => {
       console.log(`Server is running on port ${process.env.PORT}`);

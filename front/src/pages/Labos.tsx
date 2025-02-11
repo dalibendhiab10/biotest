@@ -113,23 +113,20 @@ const ConsultAnalysesPage: React.FC = () => {
 
 
       <h1 className="text-2xl ms-10 mt-[30px] mb-2">
-        {isListOne ? "Commander une analyse" :
-          (!isListOne && analysisByLab) ? (
+
             <>
               Liste des analyses par laboratoire <span className="text-green-green font-bold">{currentLabName}</span>
             </>
-          ) : ""}
+
       </h1>
 
 
-      {((isListOne || (!isListOne && analysisByLab)) && !loading && !error) && (<h3 className="ml-auto me-10  text-[#A9A7A7FC] mb-2  font-semibold"> {totalAnalysePages} {totalAnalysePages > 1 ? "Pages" : "Page"} </h3>)}
 
 
 
 
       {
 
-        (isListOne && loading) ? <div className="text-center">...Loading</div> : (isListOne && error) ? <p className="text-center text-[red]">{error}</p> :
           ((isListOne || (!isListOne && analysisByLab)) && !loading) ? <ListAnalyses onOpen={() => setIsPopupOpen(true)} onOpenInfo={() => setIsPopupInfoOpen(true)}
             listAnalyseType={"analyseLab"} setAnalyseId={setAnalyseId} analyses={currentAnalyseItems}
             analysisByLab={analysisByLab} currentLabId={currentLabId} filterAnalyse={filterAnalyse} filterActive={filterActive} /> : ""

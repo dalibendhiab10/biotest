@@ -1,20 +1,19 @@
 import React from 'react';
-import Button from '@components/atoms/Button'
+import { Link } from 'react-router-dom';
 
 
-interface AuthButtonsProps {
-    onMyAnalysesClick: () => void;
-    onConsultAnalysesClick: () => void;
-}
 
-const AuthButtons: React.FC<AuthButtonsProps> = ({ onMyAnalysesClick, onConsultAnalysesClick }) => {
+const AuthButtons: React.FC = () => {
     return (
         <div className="flex w-full justify-between xl:px-[20%] md:px-[10%] px-[8%]" >
-            <Button style={"md:text-xl  bg-green-green text-white xl:px-8 xl:py-4  md:px-6 md:py-2 px-5 py-2 rounded-3xl"} onClick={onMyAnalysesClick} label={"Gérer mes analyses"} />
-                
+            <Link to={"/analyses"} className={"md:text-xl  bg-green-green text-white xl:px-8 xl:py-4  md:px-6 md:py-2 px-5 py-2  rounded-3xl"}> Mes commandes</Link>
+
+            <Link to={"/mycatalog" } className={"md:text-xl  bg-green-green text-white xl:px-8 xl:py-4  md:px-6 md:py-2 px-5 py-2  rounded-3xl"} >Mon catalogue </Link> 
+
+
+            <Link to={"/consult-analyses" } className={"md:text-xl  bg-green-green text-white xl:px-8 xl:py-4  md:px-6 md:py-2 px-5 py-2  rounded-3xl"}>  Commander analyse</Link>
+
             
-            <Button style={"md:text-xl  bg-green-green text-white xl:px-8 xl:py-4  md:px-6 md:py-2 px-5 py-2  rounded-3xl"} onClick={onConsultAnalysesClick} label={"Consulter analyses"} />
-                
             
         </div>
     );

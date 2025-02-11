@@ -19,8 +19,6 @@ const HomePage: React.FC = () => {
         }
     }, [navigate]);
 
-    const handleNavigateToMyAnalyses = () => navigate('/analyses');
-    const handleNavigateToConsultAnalyses = () => navigate('/consult-analyses');
 
     return (
         <>
@@ -35,8 +33,6 @@ const HomePage: React.FC = () => {
             {isAuthenticated ? (
 
                 <AuthButtons 
-                    onMyAnalysesClick={handleNavigateToMyAnalyses} 
-                    onConsultAnalysesClick={handleNavigateToConsultAnalyses} 
                 />
 
             ) : (

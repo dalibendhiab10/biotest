@@ -21,7 +21,6 @@ export const authenticateToken = async (req: Request, res: Response, next: NextF
             console.error('Token verification error:', err);
             return res.sendStatus(403);
         }
-
         (req as any).biologiste = user;
         
         next();

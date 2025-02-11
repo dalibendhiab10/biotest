@@ -24,8 +24,8 @@ const LaboratoireCard: React.FC<LaboratoireCardProps> = ({ nom, logo, setCurrent
             <h3>{nom}</h3>
 
             </div>
-           <Button type={"button"} onClick={()=>{setCurrentLabId();setAnalysisByLab()}} label={"Voir Analyses"}  
-           style={"bg-green-green text-white py-2 px-4 rounded-xl"} />
+           {/* <Button type={"button"} onClick={()=>{setCurrentLabId();setAnalysisByLab()}} label={"Voir Analyses"}  
+           style={"bg-green-green text-white py-2 px-4 rounded-xl"} /> */}
 
 
         </div>
