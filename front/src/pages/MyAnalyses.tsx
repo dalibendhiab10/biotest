@@ -116,8 +116,8 @@ export default function MyAnalysesPage() {
 
 
     // Filter commandes based on selected status
-    const filteredCommandes = selectedStatus 
-        ? commandes.filter(commande => commande.etat_commande === selectedStatus) 
+    const filteredCommandes = selectedStatus
+        ? commandes.filter(commande => commande.etat_commande === selectedStatus)
         : commandes;
 
     return (
@@ -126,23 +126,23 @@ export default function MyAnalysesPage() {
             <div className="flex ps-8 pe-9 justify-between mt-[30px]">
                 <h1 className="text-2xl">Liste des commandes</h1>
                 <div className="flex items-center gap-4">
-                    <button className="text-[#1e2266fa] hover:opacity-80 bg-transparent cursor-pointer" 
+                    <button className="text-[#1e2266fa] hover:opacity-80 bg-transparent cursor-pointer"
                         onClick={() => setSelectedStatus("")}>
                         Tous
                     </button>
-                    <button className="text-[#1e2266fa] hover:opacity-80 bg-transparent cursor-pointer" 
+                    <button className="text-[#1e2266fa] hover:opacity-80 bg-transparent cursor-pointer"
                         onClick={() => setSelectedStatus("En Attente")}>
-                        En Attente 
+                        En Attente
                     </button>
-                    <button className="text-[#1e2266fa] hover:opacity-80 bg-transparent cursor-pointer" 
-                        onClick={() => setSelectedStatus("En cours d'analyse")}>
-                        En cours d'analyse 
-                    </button>
-                    <button className="text-[#e1a518fa] hover:opacity-80 bg-transparent cursor-pointer" 
+                    <button className="text-[#e1a518fa] hover:opacity-80 bg-transparent cursor-pointer"
                         onClick={() => setSelectedStatus("Confirmé")}>
-                        Confirmé  
+                        Confirmé
                     </button>
-                    <button className="text-[#1E664DFA] hover:opacity-80 bg-transparent cursor-pointer" 
+                    <button className="text-[#1e2266fa] hover:opacity-80 bg-transparent cursor-pointer"
+                        onClick={() => setSelectedStatus("En cours d'analyse")}>
+                        En cours d'analyse
+                    </button>
+                    <button className="text-[#1E664DFA] hover:opacity-80 bg-transparent cursor-pointer"
                         onClick={() => setSelectedStatus("Terminé")}>
                         Terminé
                     </button>
@@ -163,13 +163,13 @@ export default function MyAnalysesPage() {
                 />
             )}
 
-            { 
+            {
                 isListOne && (
-                    <ListCommandes 
-                        commandes={filteredCommandes} 
+                    <ListCommandes
+                        commandes={filteredCommandes}
                         onOpen={() => setIsPopupPatient(true)}
-                        onOpenInfo={() => setIsPopupInfoOpen(true)} 
-                        setCommandeId={setCommandeId} 
+                        onOpenInfo={() => setIsPopupInfoOpen(true)}
+                        setCommandeId={setCommandeId}
                     />
                 )
             }
@@ -194,7 +194,7 @@ export default function MyAnalysesPage() {
             )}
 
             {isPopupInfoOpen && (
-                <AnalyseInfo 
+                <AnalyseInfo
                     analyses={currentAnalyses}
                     analyseId={analyseId}
                     onClose={() => setIsPopupInfoOpen(false)}
