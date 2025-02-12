@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CreditCard, Building2, Wallet } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 function PanierPage() {
     const [paymentMethod, setPaymentMethod] = useState<'card' | 'bank' | 'cash'>('card');
@@ -10,7 +11,12 @@ function PanierPage() {
     ];
 
     const total = orders.reduce((sum, order) => sum + order.price, 0);
+    const navigate= useNavigate();
+    const validate = () => {
+        alert('Votre commande a été validée avec succès !');
 
+        navigate('/analyses');
+    }
     return (
         <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
             <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-4xl grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -85,7 +91,7 @@ function PanierPage() {
                         <button className="px-6 py-2 border border-gray-300 rounded-md hover:bg-gray-50">
                             Annuler
                         </button>
-                        <button className="px-6 py-2 bg-green-700 text-white rounded-md hover:bg-green-800">
+                        <button className="px-6 py-2 bg-green-700 text-white rounded-md hover:bg-green-800" onClick={validate}>
                             Valider
                         </button>
                     </div>

@@ -6,6 +6,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import FormInput from '@components/atoms/FormInput';
 import { post } from 'api/axiosConfig';
 
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 
@@ -38,6 +39,7 @@ const PatientForm: React.FC<PatientFormProps> = ({ onClose, analyseId }) => {
   // const [error, setError] = useState("")
 
 
+    const navigate = useNavigate();
 
 
 
@@ -62,8 +64,10 @@ const PatientForm: React.FC<PatientFormProps> = ({ onClose, analyseId }) => {
     try {
 
       await post(`/patients/${id}`, patient)
-      alert('Analyse ajoutée avec succès !');
+
+      alert('Analyse ajoutée avec succèsssssssss !');
       onClose();
+      navigate('/panier');
 
     } catch (err: any) {
 
