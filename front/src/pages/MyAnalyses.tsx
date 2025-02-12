@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+
+import { Commande } from "types";
 import ListAnalyses from "@components/molecules/ListAnalyses";
 import AddUpdateAnalyse from "@components/organisms/AddUpdateAnalyse";
-import { Analyse, Commande } from "types";
+import { Analyse } from "types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { get, update, remove } from "api/axiosConfig";
@@ -13,18 +15,18 @@ import ListCommandes from "@components/organisms/ListCommande";
 import { PatientInfo } from "@components/organisms/PatientInfo";
 
 
-
 export default function MyAnalysesPage() {
     const [analyses, setAnalyses] = useState<Analyse[]>([]);
-    const [analyseId, setAnalyseId] = useState<number>(0)
+    const [analyseId, setAnalyseId] = useState<number>(0);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const [isPopupInfoOpen, setIsPopupInfoOpen] = useState(false)
-    const [isPopupPatient, setIsPopupPatient] = useState(false)
-    const [isListOne, setIsListOne] = useState(true)
+    const [isPopupInfoOpen, setIsPopupInfoOpen] = useState(false);
+    const [isPopupPatient, setIsPopupPatient] = useState(false);
+    const [isListOne, setIsListOne] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
-    const [actionAnalyse, setActionAnalyse] = useState("")
-    const [commandes, setCommandes] = useState<Commande[]>([])
-    const [commandeId, setCommandeId] = useState<number>()
+    const [actionAnalyse, setActionAnalyse] = useState("");
+    const [commandes, setCommandes] = useState<Commande[]>([]);
+    const [selectedStatus, setSelectedStatus] = useState<string>(""); // New state for selected status
+    const [commandeId, setCommandeId] = useState<number>();
 
     const analysesPerPage = 10;
 
@@ -53,33 +55,19 @@ export default function MyAnalysesPage() {
 
     }, []);
 
-
-
     // Get biologiste orders  
     useEffect(() => {
-
         const fetchCommandes = async () => {
-
             try {
-
-                const response = await get('/getAllCommandes')
-
-                setCommandes(response)
-
+                const response = await get('/getAllCommandes');
+                setCommandes(response);
             } catch (error: any) {
-
-                console.error("Erreur lors de la récupération des biologists")
-
+                console.error("Erreur lors de la récupération des commandes");
             }
+        };
 
-        }
-
-        fetchCommandes()
-
-    }, [])
-
-
-
+        fetchCommandes();
+    }, []);
 
     const modifierAnalyse = async (updatedAnalyse: Analyse) => {
         try {
@@ -90,6 +78,7 @@ export default function MyAnalysesPage() {
             }
             await update(`/aa/analyse/${updatedAnalyse.id}`, updatedAnalyse);
             alert('Analyse modifiée avec succès !');
+
             setIsPopupOpen(false)
         } catch (error) {
             console.error('Erreur lors de la modification de l\'analyse :', error);
@@ -125,69 +114,72 @@ export default function MyAnalysesPage() {
         }
     };
 
+
+    // Filter commandes based on selected status
+    const filteredCommandes = selectedStatus 
+        ? commandes.filter(commande => commande.etat_commande === selectedStatus) 
+        : commandes;
+
     return (
         <div className="flex flex-col min-h-screen">
-
-
-
             <NavBar switchList={setIsListOne} currentList={isListOne} />
-
-
-
             <div className="flex ps-8 pe-9 justify-between mt-[30px]">
                 <h1 className="text-2xl">Liste des commandes</h1>
                 <div className="flex items-center gap-4">
-                <button className="text-[#1e2266fa] hover:opacity-80 bg-transparent cursor-pointer 
-                    text-xl transition-colors duration-300 w-fit h-7 flex items-center justify-center 
-                     border-[2.5px] border-[#1e2266fa] mt-1 rounded-md p-2" >
-                        Confirmé 
-
-                </button>
-                <button className="text-[#e1a518fa] hover:opacity-80 bg-transparent cursor-pointer 
-                    text-xl transition-colors duration-300 w-fit h-7 flex items-center justify-center 
-                     border-[2.5px] border-[#e1a518fa] mt-1 rounded-md p-2" >
-                        En cours d'analyse  
-
-                </button>
-                <button className="text-[#1E664DFA] hover:opacity-80 bg-transparent cursor-pointer 
-                    text-xl transition-colors duration-300 w-fit h-7 flex items-center justify-center 
-                     border-[2.5px] border-[#1E664DFA] mt-1 rounded-md p-2" >
+                    <button className="text-[#1e2266fa] hover:opacity-80 bg-transparent cursor-pointer" 
+                        onClick={() => setSelectedStatus("")}>
+                        Tous
+                    </button>
+                    <button className="text-[#1e2266fa] hover:opacity-80 bg-transparent cursor-pointer" 
+                        onClick={() => setSelectedStatus("En Attente")}>
+                        En Attente 
+                    </button>
+                    <button className="text-[#1e2266fa] hover:opacity-80 bg-transparent cursor-pointer" 
+                        onClick={() => setSelectedStatus("En cours d'analyse")}>
+                        En cours d'analyse 
+                    </button>
+                    <button className="text-[#e1a518fa] hover:opacity-80 bg-transparent cursor-pointer" 
+                        onClick={() => setSelectedStatus("Confirmé")}>
+                        Confirmé  
+                    </button>
+                    <button className="text-[#1E664DFA] hover:opacity-80 bg-transparent cursor-pointer" 
+                        onClick={() => setSelectedStatus("Terminé")}>
                         Terminé
-                </button>
-
-                
+                    </button>
                 </div>
             </div>
 
+            {!isListOne && (<h3 className="ml-auto me-10 text-[#A9A7A7FC] mb-2 mt-2 font-semibold"> {totalPages} {totalPages > 1 ? "Pages" : "Page"} </h3>)}
 
-            {!isListOne && (<h3 className="ml-auto me-10  text-[#A9A7A7FC] mb-2 mt-2 font-semibold"> {totalPages} {totalPages > 1 ? "Pages" : "Page"} </h3>)}
+            {!isListOne && (
+                <ListAnalyses
+                    analyses={currentAnalyses}
+                    supprimerAnalyse={supprimerAnalyse}
+                    setActionAnalyse={setActionAnalyse}
+                    setAnalyseId={setAnalyseId}
+                    onOpen={() => setIsPopupOpen(true)}
+                    onOpenInfo={() => setIsPopupInfoOpen(true)}
+                    listAnalyseType={"myAnalyses"}
+                />
+            )}
 
-            {!isListOne && (<ListAnalyses
-                analyses={currentAnalyses}
-                supprimerAnalyse={supprimerAnalyse}
-                setActionAnalyse={setActionAnalyse}
-                setAnalyseId={setAnalyseId}
-                onOpen={() => setIsPopupOpen(true)}
-                onOpenInfo={() => setIsPopupInfoOpen(true)}
-                listAnalyseType={"myAnalyses"}
-            />)
+            { 
+                isListOne && (
+                    <ListCommandes 
+                        commandes={filteredCommandes} 
+                        onOpen={() => setIsPopupPatient(true)}
+                        onOpenInfo={() => setIsPopupInfoOpen(true)} 
+                        setCommandeId={setCommandeId} 
+                    />
+                )
             }
-
-
-
-
-            {
-                isListOne && (<ListCommandes commandes={commandes} onOpen={() => setIsPopupPatient(true)}
-                    onOpenInfo={() => setIsPopupInfoOpen(true)} setCommandeId={setCommandeId} />)
-            }
-
-
 
             {isPopupOpen && (
                 <AddUpdateAnalyse
                     ajouterAnalyse={(newAnalyse: Analyse) => {
                         setAnalyses([...analyses, newAnalyse]);
-                        setIsPopupOpen(false)
+
+                        setIsPopupOpen(false);
                     }}
                     onClose={() => setIsPopupOpen(false)}
                     action={actionAnalyse}
@@ -197,34 +189,30 @@ export default function MyAnalysesPage() {
                 />
             )}
 
-
             {isPopupPatient && (
                 <PatientInfo info={commandes.find(commande => commande.id === commandeId)?.patient} onClose={() => setIsPopupPatient(false)} />
             )}
 
-
-
-
             {isPopupInfoOpen && (
-                <AnalyseInfo analyses={currentAnalyses}
+                <AnalyseInfo 
+                    analyses={currentAnalyses}
                     analyseId={analyseId}
                     onClose={() => setIsPopupInfoOpen(false)}
                     {...(isListOne && { commandes, commandeId })}
                 />
             )}
 
-
             {
-                !isListOne && (<Pagination
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    onPageChange={handlePageChange}
-                />)
+                !isListOne && (
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={handlePageChange}
+                    />
+                )
             }
 
-
             <Footer />
-
         </div>
     );
 }
