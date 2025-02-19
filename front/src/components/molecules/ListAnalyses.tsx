@@ -24,17 +24,14 @@ export default function ListAnalyses({ analyses, supprimerAnalyse,
 // Extract all analysis or filter by biologist
 const analysis = filterActive?analyses.filter(analyse => {
     return (
-      (!filterAnalyse?.examen || (analyse.codeCNAM == filterAnalyse.examen || analyse.nom == filterAnalyse.examen)) &&
+      (!filterAnalyse?.examen || (analyse.codeCNAM === filterAnalyse.examen.toString() || analyse.nom === filterAnalyse.examen.toString())) &&
       (!filterAnalyse?.nature_prelevement || analyse.type_prelevement === filterAnalyse.nature_prelevement) &&
-      (!filterAnalyse?.specialite || analyse.specialité === filterAnalyse.specialite) &&
       (!filterAnalyse?.technique || analyse.technique === filterAnalyse.technique) &&
-      (!filterAnalyse?.temperature || analyse.temperature == filterAnalyse.temperature) &&
-      (!filterAnalyse?.tarification || analyse.prix == filterAnalyse.tarification)
+      (!filterAnalyse?.temperature || analyse.temperature === filterAnalyse.temperature.toString()) &&
+      (!filterAnalyse?.tarification || analyse.prix === filterAnalyse.tarification)
     )}
-
 ):!analysisByLab?
 analyses:analyses.filter(analyse => analyse.biologiste?.id === currentLabId)
-
 
 return (
         <div className="overflow-x-auto ps-8 pe-8">
@@ -42,15 +39,14 @@ return (
         <table className="min-w-full">
             <thead className="bg-green-green">
                 <tr className="text-white">
-                    <th className="px-4 py-2 text-center">Code</th>
-{listAnalyseType=="analyseLab"&&<th className="px-4 py-2 text-center">Laboratoire</th>}  
-                    <th className="px-4 py-2 text-center">Nom</th>
-                    <th className="px-4 py-2 text-center">Durée</th>
-                    <th className="px-4 py-2 text-center">Type prélèvement</th>
-                    <th className="px-4 py-2 text-center">Technique</th>
-            {listAnalyseType=="myAnalyses"&&<th className="px-4 py-2 text-center">Machine</th>}
-                    <th className="px-4 py-2 text-center">Prix</th>
+                    <th className="px-4 py-2 text-center">Code CNAM</th>
+                    <th className="px-4 py-2 text-center">Nom de l'analyse</th>
+                    <th className="px-4 py-2 text-center">Prix (DT)</th>
+                    <th className="px-4 py-2 text-center">Type de prélèvement</th>
+                    <th className="px-4 py-2 text-center">Technique utilisée</th>
+                    <th className="px-4 py-2 text-center">Machine</th>
                     <th className="px-4 py-2 text-center">Actions</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -60,14 +56,11 @@ return (
                         {  (
                             <>
                                 <td className="px-4 py-2 text-center">{analyse.codeCNAM}</td>
-{listAnalyseType=="analyseLab"&&<td className="px-4 py-2 flex justify-center">
-    <img src={analyse.biologiste?.logo} width={"90px"} height={"90px"} alt="Logo Laboratoire" /> </td>}
                                 <td className="px-4 py-2 text-center">{analyse.nom}</td>
-                                <td className="px-4 py-2 text-center">{analyse.durée}</td>
-                                <td className="px-4 py-2 text-center">{analyse.type_prelevement}</td>
-                                <td className="px-4 py-2 text-center">{analyse.technique}</td>
-                        {listAnalyseType=="myAnalyses"&&<td className="px-4 py-2 text-center">{analyse.machine}</td>}        
-                                <td className="px-4 py-2 font-bold text-center">{analyse.prix}DT</td>
+                                <td className="px-4 py-2 text-center">{analyse.durée || 'N/A'}</td>
+
+                                <td className="px-4 py-2 font-bold text-center">{analyse.prix} DT</td>
+
                                 <td className="px-4 py-2">
                                 <div className="flex items-center space-x-4 justify-center">
                                     <button onClick={()=>{onOpenInfo();setAnalyseId(analyse.id)}} className="flex items-center justify-around font-medium text-5xl flex w-7 h-7 rounded-full 
@@ -89,7 +82,6 @@ return (
 
                                     </button>}
 
-
                                     </div>
                                 </td>
                             </>
@@ -102,6 +94,4 @@ return (
         </div>
         </div>
     );
-
-
 }

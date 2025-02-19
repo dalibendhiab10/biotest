@@ -18,10 +18,10 @@ interface PatientFormProps {
 const PatientForm: React.FC<PatientFormProps> = ({ onClose, analyseId }) => {
 
   const [patient, setPatient] = useState<Patient>({
-    sexe: '',
     nom: '',
     prenom: '',
     date_naissance: undefined,
+    sexe: '',
     numcarte: 0,
     reference: '',
     DDR: undefined,
@@ -34,7 +34,13 @@ const PatientForm: React.FC<PatientFormProps> = ({ onClose, analyseId }) => {
     temp: 0,
     congele: false,
     urgent: false,
+    enceinte: false,
+    commentaire: '',
   });
+
+
+
+
 
   // const [error, setError] = useState("")
 
@@ -109,14 +115,50 @@ const PatientForm: React.FC<PatientFormProps> = ({ onClose, analyseId }) => {
             </select>
           </div>
 
-          <FormInput label={"Numero carte"} name={"numcarte"} type={"number"} value={patient.numcarte} onChange={handleChange} />
-          <FormInput label={"Réference"} name={"reference"} type={"text"} value={patient.reference} onChange={handleChange} />
-          <FormInput label={"DDR"} name={"DDR"} type={"date"} value={patient.DDR ? patient.DDR.toISOString().split('T')[0] : ''} onChange={handleChange} />
-          <FormInput label={"Date debut grossesse"} name={"date_deb_grossesse"} type={"date"} value={patient.date_deb_grossesse ? patient.date_deb_grossesse.toISOString().split('T')[0] : ''} onChange={handleChange} />
-          <FormInput label={"Nombre foetus"} name={"nbrefoetus"} type={"number"} value={patient.nbrefoetus} onChange={handleChange} />
-          <FormInput label={"Date prélèvement"} name={"date_prelevement"} type={"date"} value={patient.date_prelevement ? patient.date_prelevement.toISOString().split('T')[0] : ''} onChange={handleChange} />
-          <FormInput label={"Nombre tube"} name={"nbretube"} type={"number"} value={patient.nbretube} onChange={handleChange} />
-          <FormInput label={"Temps"} name={"temp"} type={"number"} value={patient.temp} onChange={handleChange} />
+          {patient.sexe === 'femme' && (
+            <div className="col-span-2">
+              <input
+                type="checkbox"
+                id="enceinte"
+                name="enceinte"
+                checked={patient.enceinte}
+                onChange={(e) => setPatient({ ...patient, enceinte: e.target.checked })}
+                className="mr-2"
+              />
+              <label htmlFor="enceinte" className="text-gray-700">
+                Enceinte
+              </label>
+            </div>
+          )}
+
+          {patient.enceinte && (
+            <>
+              <FormInput label={"DDR"} name={"DDR"} type={"date"} value={patient.DDR ? patient.DDR.toISOString().split('T')[0] : ''} onChange={handleChange} />
+              <FormInput label={"Date debut grossesse"} name={"date_deb_grossesse"} type={"date"} value={patient.date_deb_grossesse ? patient.date_deb_grossesse.toISOString().split('T')[0] : ''} onChange={handleChange} />
+              <FormInput label={"Nombre foetus"} name={"nbrefoetus"} type={"number"} value={patient.nbrefoetus} onChange={handleChange} />
+            </>
+          )}
+
+          <FormInput label={"Nombre de tubes"} name={"nbretube"} type={"number"} value={patient.nbretube} onChange={handleChange} />
+
+
+          <FormInput label={"Heure de prélèvement"} name={"heure_prelevement"} type={"number"} value={patient.heure_prelevement} onChange={handleChange} />
+          <FormInput label={"Commentaire"} name={"commentaire"} type={"text"} value={patient.commentaire} onChange={handleChange} />
+          
+          <div className="col-span-2">
+            <input
+              type="checkbox"
+              id="urgent"
+              name="urgent"
+              checked={patient.urgent}
+              onChange={(e) => setPatient({ ...patient, urgent: e.target.checked })}
+              className="mr-2"
+            />
+            <label htmlFor="urgent" className="text-gray-700">
+              Urgent
+            </label>
+          </div>
+
 
           {/* Buttons */}
           <button type="submit" className="px-8 py-2 col-span-2 mt-4 bg-green-green text-white rounded-3xl hover:bg-green-700">

@@ -23,19 +23,21 @@ const AddUpdateAnalyse: React.FC<AddUpdateAnalyseProps> = ({ ajouterAnalyse, onC
 
   const [nouvelleAnalyse, setNouvelleAnalyse] = useState<Analyse>({
     id: analyse?analyse.id:0,
-    codeCNAM:analyse?analyse.codeCNAM:'',
-    nom:analyse?analyse.nom:'',
-    description:analyse?analyse.description:'',
-    prix:analyse?analyse.prix:0,
-    durée:analyse?analyse.durée: 0,
-    type_prelevement:analyse?analyse.type_prelevement:'',
-    technique:analyse?analyse.technique:'',
-    machine:analyse?analyse.machine: '',
-    temperature:analyse?analyse.temperature:0,
-    urgent:analyse?analyse.urgent:false,
-    specialité:analyse?analyse.specialité:'',
-    biologiste:analyse?analyse.biologiste:null,
+    nom: analyse?analyse.nom:'',
+    codeCNAM: analyse?analyse.codeCNAM:'',
+    prix: analyse?analyse.prix:0,
+    durée: analyse?analyse.durée:'',
+
+    volume: analyse?analyse.volume:0,
+
+    type_prelevement: analyse?analyse.type_prelevement:'',
+    technique: analyse?analyse.technique:'',
+    automate: analyse?analyse.automate:'',
+    temperature: analyse?analyse.temperature:'ambiante',
+
+    urgent: analyse?analyse.urgent:false,
   });
+
 
 
 
@@ -93,21 +95,23 @@ useEffect(()=>{
 
 if(action=="add"){
 
-setNouvelleAnalyse({
-  id: 0,
-  codeCNAM:'',
-  nom:'',
-  description:'',
-  prix:0,
-  durée:0,
-  type_prelevement:'',
-  technique:'',
-  machine:'',
-  temperature:0,
-  urgent:false,
-  specialité:'',
-  biologiste:null,
-})
+  setNouvelleAnalyse({
+    id: 0,
+    nom: '',
+    codeCNAM: '',
+    prix: 0,
+    durée: '',
+
+    volume: 0,
+
+    type_prelevement: '',
+    technique: '',
+    automate: '',
+    temperature: 'ambiante',
+
+    urgent: false,
+  })
+
 
 
 }
@@ -139,36 +143,47 @@ return (
 <FormInput  label={"Nom Analyse"} name={"nom"} type={"text"} 
  value={nouvelleAnalyse.nom} onChange={handleChange} />
 
-
-
 <FormInput  label={"Code Analyse"} name={"codeCNAM"} type={"text"} 
  value={nouvelleAnalyse.codeCNAM} onChange={handleChange} />
-
 
 <FormInput  label={"Prix DT"} name={"prix"} type={"number"} 
  value={nouvelleAnalyse.prix} onChange={handleChange} />
 
-
-
-<FormInput  label={"Durée"} name={"durée"} type={"number"} 
+<FormInput  label={"Durée"} name={"durée"} type={"text"} 
  value={nouvelleAnalyse.durée} onChange={handleChange} />
 
+
+<FormInput  label={"Volume"} name={"volume"} type={"number"} 
+ value={nouvelleAnalyse.volume} onChange={handleChange} />
 
 
 <FormInput  label={"Type Prélèvement"} name={"type_prelevement"} type={"text"} 
  value={nouvelleAnalyse.type_prelevement} onChange={handleChange} />
 
-
 <FormInput  label={"Technique"} name={"technique"} type={"text"} 
  value={nouvelleAnalyse.technique} onChange={handleChange} />
 
+<FormInput  label={"Automate"} name={"automate"} type={"text"} 
+ value={nouvelleAnalyse.automate} onChange={handleChange} />
 
-<FormInput  label={"Machine"} name={"machine"} type={"text"} 
- value={nouvelleAnalyse.machine} onChange={handleChange} />
+<div>
+  <label htmlFor="temperature" className="block text-gray-700 ms-2 mb-2">
+    Température
+  </label>
+  <select
+    id="temperature"
+    name="temperature"
+    className="mt-1 w-[180px] p-2 bg-[#D6EFD8] rounded-3xl shadow-[0px_4px_4px_0px_#0000000D]"
+    value={nouvelleAnalyse.temperature}
+    onChange={handleSelectChange}
+  >
+    <option value="ambiante">Ambiante</option>
+    <option value="congelée">Congelée</option>
+    <option value="refrigérée">Refrigérée</option>
+  </select>
+</div>
 
 
-<FormInput  label={"Température"} name={"temperature"} type={"number"} 
- value={nouvelleAnalyse.temperature} onChange={handleChange} />
 
 
 <div>
@@ -188,10 +203,8 @@ onChange={handleSelectChange}
 </div>
 
 
-<FormInput  label={"Spécialité"} name={"specialité"} type={"text"} 
- value={nouvelleAnalyse.specialité} onChange={handleChange} />
-
 {/* Buttons */}
+
 <div className="flex justify-between w-1/2 mt-12 col-span-2 mb-5">
 
 <button type="button" className="px-8 h-8 bg-white text-gray-600 border

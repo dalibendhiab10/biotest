@@ -1,18 +1,21 @@
 export interface Analyse {
   id: number;
-  codeCNAM: string;
   nom: string;
-  description: string;
+  codeCNAM: string;
   prix: number;
-  durée: number;
+  durée: string;
+
+  volume: number;
+
   type_prelevement: string;
   technique: string;
-  machine: string;
-  temperature: number;
+  automate: string;
+  temperature: 'ambiante' | 'congelée' | 'refrigérée';
+  biologiste?: Biologiste;
   urgent: boolean;
-  specialité: string;
-  biologiste: Biologiste | null;
 }
+
+
 export interface Biologiste {
   id: number;
   matricule_fiscale: string;
@@ -61,8 +64,13 @@ export interface Patient {
   temp: number;
   congele: boolean;
   urgent: boolean;
+  enceinte: boolean;
+  commentaire?: string;
   /*analyseCommande?: Analyse_commande;*/
 }
+
+
+
 
 export type FilterAnalyse = {
   examen?: string | number;
