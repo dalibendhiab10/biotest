@@ -177,10 +177,10 @@ export default function MyAnalysesPage() {
             {isPopupOpen && (
                 <AddUpdateAnalyse
                     ajouterAnalyse={(newAnalyse: Analyse) => {
-                        setAnalyses([...analyses, newAnalyse]);
-
+                        setAnalyses(prevAnalyses => [...prevAnalyses, newAnalyse]);
                         setIsPopupOpen(false);
                     }}
+
                     onClose={() => setIsPopupOpen(false)}
                     action={actionAnalyse}
                     modifierAnalyse={modifierAnalyse}

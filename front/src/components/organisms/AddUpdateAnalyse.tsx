@@ -41,7 +41,7 @@ const AddUpdateAnalyse: React.FC<AddUpdateAnalyseProps> = ({ ajouterAnalyse, onC
 
 
 
-  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setNouvelleAnalyse({ ...nouvelleAnalyse, [name]: value });
 
@@ -143,7 +143,7 @@ return (
 <FormInput  label={"Nom Analyse"} name={"nom"} type={"text"} 
  value={nouvelleAnalyse.nom} onChange={handleChange} />
 
-<FormInput  label={"Code Analyse"} name={"codeCNAM"} type={"text"} 
+<FormInput  label={"Code CNAM"} name={"codeCNAM"} type={"text"} 
  value={nouvelleAnalyse.codeCNAM} onChange={handleChange} />
 
 <FormInput  label={"Prix DT"} name={"prix"} type={"number"} 
