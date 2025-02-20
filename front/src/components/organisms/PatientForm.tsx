@@ -45,7 +45,7 @@ const PatientForm: React.FC<PatientFormProps> = ({ onClose, analyseId }) => {
   // const [error, setError] = useState("")
 
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
 
 
@@ -71,9 +71,9 @@ const PatientForm: React.FC<PatientFormProps> = ({ onClose, analyseId }) => {
 
       await post(`/patients/${id}`, patient)
 
-      alert('Analyse ajoutée avec succèsssssssss !');
+      alert('Analyse ajoutée avec succès !');
       onClose();
-      navigate('/panier');
+      // navigate('/panier');
 
     } catch (err: any) {
 
@@ -144,21 +144,35 @@ const PatientForm: React.FC<PatientFormProps> = ({ onClose, analyseId }) => {
 
           <FormInput label={"Heure de prélèvement"} name={"heure_prelevement"} type={"number"} value={patient.heure_prelevement} onChange={handleChange} />
           <FormInput label={"Commentaire"} name={"commentaire"} type={"text"} value={patient.commentaire} onChange={handleChange} />
-          
-          <div className="col-span-2">
-            <input
-              type="checkbox"
-              id="urgent"
-              name="urgent"
-              checked={patient.urgent}
-              onChange={(e) => setPatient({ ...patient, urgent: e.target.checked })}
-              className="mr-2"
-            />
-            <label htmlFor="urgent" className="text-gray-700">
-              Urgent
-            </label>
-          </div>
+          <div className=' flex flex-row gap-3 '>
 
+            <div className="col-span-2">
+              <input
+                type="checkbox"
+                id="urgent"
+                name="urgent"
+                checked={patient.urgent}
+                onChange={(e) => setPatient({ ...patient, urgent: e.target.checked })}
+                className="mr-2"
+              />
+              <label htmlFor="urgent" className="text-gray-700">
+                Urgent?
+              </label>
+            </div>
+            <div className="col-span-2">
+              <input
+                type="checkbox"
+                id="congele"
+                name="congele"
+                checked={patient.congele}
+                onChange={(e) => setPatient({ ...patient, congele: e.target.checked })}
+                className="mr-2"
+              />
+              <label htmlFor="urgent" className="text-gray-700">
+                Congele?
+              </label>
+            </div>
+          </div>
 
           {/* Buttons */}
           <button type="submit" className="px-8 py-2 col-span-2 mt-4 bg-green-green text-white rounded-3xl hover:bg-green-700">

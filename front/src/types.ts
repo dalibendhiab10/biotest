@@ -10,7 +10,8 @@ export interface Analyse {
   type_prelevement: string;
   technique: string;
   automate: string;
-  temperature: 'ambiante' | 'congelée' | 'refrigérée';
+  temperature: 10|20|30; // 'ambiante' | 'congelée' | 'refrigérée';
+
   biologiste?: Biologiste;
   urgent: boolean;
 }

@@ -109,7 +109,7 @@ const Signup: React.FC = () => {
         </div>
 
         <div>
-          <label>Personne consacrée:</label>
+          <label>Personne Contact:</label>
           <input className="w-full border border-black mb-2"
             type="text"
             value={personneConsacre}

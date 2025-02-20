@@ -9,8 +9,8 @@ import cart from "@assets/icons/cart.svg"
 
 interface NavBarProps {
 
-    currentList: boolean
-    switchList: React.Dispatch<React.SetStateAction<boolean>>
+    currentList?: boolean
+    switchList?: React.Dispatch<React.SetStateAction<boolean>>
     setAnalysisByLab?: (b: boolean) => void
     setFilterActive?: (b: boolean) => void
 }
@@ -29,7 +29,7 @@ const NavBar: React.FC<NavBarProps> = ({ currentList, switchList, setAnalysisByL
 
 
         <div className="flex text-xl font-medium">
-            <h3 onClick={() => { switchList(true); setAnalysisByLab && setAnalysisByLab(false); setFilterActive && setFilterActive(false) }} className={`cursor-pointer me-10 ${currentList == true ? "border-b-2 border-green-green text-green-green" : "cursor-pointer me-10 text-[#A9A7A7FC]"}`}> {location.pathname === "/analyses" ? "Liste des commandes" : " Commander une analyse "}</h3>
+            <h3  className={`cursor-pointer me-10 ${currentList == true ? "border-b-2 border-green-green text-green-green" : "cursor-pointer me-10 text-[#A9A7A7FC]"}`}> {location.pathname === "/analyses" ? "Liste des commandes" : " Commander une analyse "}</h3>
             {/* <h3 onClick={() => { switchList(false); setAnalysisByLab && setAnalysisByLab(false) }} className={`cursor-pointer ${currentList == false ? "border-b-2 border-green-green text-green-green" : "cursor-pointer text-[#A9A7A7FC]"}`}> {location.pathname === "/analyses" ? "Liste des analyses" : "Laboratoires"} </h3> */}
         </div>
 

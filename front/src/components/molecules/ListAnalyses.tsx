@@ -28,7 +28,7 @@ const analysis = analyses.filter(analyse => {
             (!filterAnalyse?.examen || (analyse.codeCNAM === filterAnalyse.examen.toString() || analyse.nom === filterAnalyse.examen.toString())) &&
             (!filterAnalyse?.nature_prelevement || analyse.type_prelevement === filterAnalyse.nature_prelevement) &&
             (!filterAnalyse?.technique || analyse.technique === filterAnalyse.technique) &&
-            (!filterAnalyse?.temperature || analyse.temperature === filterAnalyse.temperature.toString()) &&
+            (!filterAnalyse?.temperature || analyse.temperature === filterAnalyse.temperature) &&
             (!filterAnalyse?.tarification || analyse.prix === filterAnalyse.tarification)
         );
     }
@@ -76,9 +76,9 @@ return (
 
                         <td className="px-4 py-2 text-center">{analyse.technique}</td>
                         <td className="px-4 py-2 text-center">
-                            {analyse.temperature === 'ambiante' && 'Ambiante'}
-                            {analyse.temperature === 'congelée' && 'Congelée'}
-                            {analyse.temperature === 'refrigérée' && 'Réfrigérée'}
+                            {analyse.temperature === 10 && 'Ambiante'}
+                            {analyse.temperature === 20 && 'Congelée'}
+                            {analyse.temperature === 30 && 'Réfrigérée'}
                         </td>
 
                         <td className="px-4 py-2 text-center">{analyse.urgent ? 'OUI' : 'NON'}</td>

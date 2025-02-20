@@ -33,6 +33,7 @@ export default function MyCatalogPage() {
                 const response = await get('/aa/analyse');
 
                 if (Array.isArray(response.analyses)) {
+                    console.log(response.analyses)
                     setAnalyses(response.analyses);
                 } else {
                     console.error('Données invalides reçues');
