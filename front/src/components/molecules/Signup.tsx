@@ -146,16 +146,17 @@ const Signup: React.FC = () => {
 
         <div>
           <label>Laboratoire:</label>
-          <input
+          <input className="w-full border border-black mb-2"
             type="text"
             value={laboratoire}
             onChange={(e) => setLaboratoire(e.target.value)}
           />
         </div>
 
-        <div>
+        <div className="mb-5" >
           <label>Logo:</label>
-          <input
+          <input 
+
             type="file"
             accept="image/*"
             onChange={handleFileChange}
@@ -163,14 +164,14 @@ const Signup: React.FC = () => {
           {logo && <img src={logo} alt="Logo Preview" style={{ maxWidth: '100px', marginTop: '10px' }} />}
         </div>
 
-        <div>
+        {/* <div>
           <label>Coursier:</label>
           <input
             type="checkbox"
             checked={coursier}
             onChange={(e) => setCoursier(e.target.checked)}
           />
-        </div>
+        </div> */}
 
         {error && <p style={{ color: 'red' }}>{error}</p>}
       
